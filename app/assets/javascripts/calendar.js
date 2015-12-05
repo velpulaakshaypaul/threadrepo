@@ -14,7 +14,7 @@ $(document).ready(function() {
     dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     columnFormat: {
       month: 'dddd',
-      week: 'dddd d',
+      week: 'dddd D',
       day: 'ddd'
     },
     buttonText: {
@@ -66,7 +66,7 @@ $(document).ready(function() {
         });
       }
       $("#calendar").fullCalendar("unselect");
-    },  
+    },
     defaultView: 'agendaWeek',
     allDaySlot: false,
     height: 500,
@@ -76,7 +76,7 @@ $(document).ready(function() {
         url: '/events'
       }
     ],
-    timeFormat: 'h:mm t{ - h:mm t} ',
+    timeFormat: 'h:mm ',
     dragOpacity: "0.5"
   });
 });
@@ -84,7 +84,7 @@ $(document).ready(function() {
 
 // $(document).ready(function() {
 //    $("#calendar").fullCalendar({
-//      header: 
+//      header:
 //      left: "prev,next today",
 //      center: "title",
 //      right: "month,agendaWeek,agendaDay"

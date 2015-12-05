@@ -18,14 +18,15 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.between(params['start'], params['end']) if (params['start'] && params['end']) 
+    @events = Event.between(params['start'], params['end']) if (params['start'] && params['end'])
 
-    respond_to do |format| 
+    respond_to do |format|
       format.html
-      format.json { render :json => @events } 
+      format.json { render :json => @events }
     end
   end
 
   def event_params
     params.permit(:title).merge start_at: params[:start].to_time, end_at: params[:end].to_time, user_name: params[:user_name]
   end
+end
