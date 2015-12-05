@@ -108,6 +108,6 @@ config.action_mailer.smtp_settings = {
   # config.action_view.raise_on_missing_translations = true
 
   #created as part of the devise gem
-
+config.serve_static_assets = true
 
 end
