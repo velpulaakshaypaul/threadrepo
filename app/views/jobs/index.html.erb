@@ -34,7 +34,7 @@
         <td><%= link_to 'Show', job, class: "btn btn-link" %></td>
         <td><%= link_to 'Edit', edit_job_path(job), class: "btn btn-link" %></td>
         <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" %></td>
-        <td><%= link_to 'Check Applicants', viewapplicants_adminusers_path(:job_id => job.id),  class: "btn btn-link" %></td>
+        <td><%= link_to 'Check Applicants', viewapplicants_jobs_path(:job_id => job.id,:admin_email => @email_id ),  class: "btn btn-link" %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,395 @@
+
+<html>
+<link href="css/ui-lightness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+
+<!-- add scripts -->
+<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+      <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.css">
+      <script src="jquery-1.9.1.js"></script>
+      <script src="jquery-ui.js"></script>
+      <script src="jquery.timepicker.js"></script>
+      <script type="text/javascript"></script>
+
+        <!--  <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+        <script src='lib/jquery.min.js'></script>
+        <script src='lib/moment.min.js'></script>
+        <script src='fullcalendar/fullcalendar.js'></script>
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script src="../websites/jquery-1.10.1.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script src="js/jquery.191.js"></script>
+        <script src="js/jquery-ui-1.9.2.custom.min.js"></script>-->
+        <link href="jquery-ui.css" rel="stylesheet" />
+
+
+<body>
+
+<h1>Profile Information for</h1>
+
+<h2><%= @email_id %></h2>
+<div>
+Resume:<br>
+<textarea id="myTextarea">
+342 Alvin Road
+Ducksburg</textarea>
+</br>
+CoverLetter:<br>
+<textarea id="myTextarea">
+342 Alvin Road
+Ducksburg</textarea>
+</br>
+
+<br>
+  <button id="poll">Click to Schedule Interview</button>
+  <button id="nopoll">Click to Send NoOffer Mail</button>
+</br>
+
+
+</div>
+<script type="text/javascript">
+$( document ).ready(function() {
+
+  $("#poll").click(function() {
+
+$('#datepicker').datepicker();
+   document.getElementById("datepicker").value = "";
+   var InterviewCheckBox=document.getElementById("Interviewcheckbox");
+var emailcheckbox = document.getElementById("mycheckbox");
+emailcheckbox.checked = false;
+Interviewcheckbox.checked = false;
+var emailContent = document.getElementById("mycheckboxdiv");
+var InterviewContent = document.getElementById("InterviewingOptions");
+emailContent.style.display="none"
+InterviewContent.style.display="none"
+      $("#myDialog").dialog({height: 'auto', buttons: { "OK":
+
+
+      function()
+      {
+        var Status,interviewDate,InterviewStartTime,InterviewEndTime,emailbody,sendapplicantemail,displayalertmessage;
+                 Status=$("#applicationstatus").val() ;
+                  var admin_email = "<%= @email_id %>"
+              //    alert(admin_email)
+              //   interviewDate=$("#datepicker").val().split("-");
+                 InterviewDate=$("#datepicker").val();
+                 var applicantId= '<%= @applicant.id %>'
+                 var new_start = new Date($("#datepicker").val());
+                //   alert(new_start);
+                  var Status = $("#applicationstatus").val();
+                 emailbody=$("#interviewemail").val();
+              //   var InterviewDate = new Date(interviewDate=[2], interviewDate=[1] - 1, interviewDate=[0]);
+                 InterviewStartTime=$("#time").val() ;
+                 InterviewEndTime=$("#endtime").val() ;
+
+                 if(($('#Interviewcheckbox').is(':checked')&& (InterviewDate!="")||((!$('#Interviewcheckbox').is(':checked'))&& (InterviewDate==""))))
+                 displayalertmessage="false";
+                 else
+                 displayalertmessage="true";
+                 if($('#mycheckbox').is(':checked'))
+                  sendapplicantemail="true"
+                  else
+                  sendapplicantemail="false"
+                 if(displayalertmessage=="false")
+                 {
+                //   alert("sending emails")
+                 $.ajax({type: 'GET', url: '/jobs/sendemails',dataType: 'script',data: { body: ( emailbody) ,subject: ("Interview scheduled for "+ admin_email),type: "offer",admin_email_id:admin_email , sendemailtoapplcant:sendapplicantemail,InterViewStatus:Status, ApplicantId:applicantId  } });
+                //  $(this).dialog("close");
+                }
+                else {
+                alert("Date cannot be empty");
+                }
+                $.ajax({type: 'GET', url: '/jobs/interview_records',dataType: 'script',data: { admin_email_id:admin_email ,  ApplicantId:applicantId, DateofInterview:InterviewDate, InterviewEndTime:InterviewDate   } });
+
+
+          $(this).dialog("close");
+        } } });
+      }
+       );
+
+    $("#nopoll").click(function() {
+      $("#myDialognooffer").dialog({height: 'auto', buttons: { "OK": function() { var answer,emailbody; answer=$("#nooffertext").val() ;$.ajax({type: 'GET', url: '/adminusers/sendemails',dataType: 'script',data: { subject: ("Interview scheduled for "+ answer), type: "nooffer",body: emailbody  } }); $(this).dialog("close"); } } });
+  });
+});
+</script>
+
+
+
+    <div id="myDialog" class="flora" title="Schedule Interview options" style="display: none;">
+      <br>
+      <h6>What would you like to do</h6>
+        <%= @name %></li>
+      <u>Change Application Status:</u><input type="checkbox" name="Applicationcheckbox" id="Applicationcheckbox" autocomplete="off" value="Clickme" />
+  <div id="ApplicationStatus" style="display: none">
+          <select id="applicationstatus">
+            <option value="NeedsReview">NeedsReview</option>
+            <option value="Under Review">Under Review</option>
+            <option value="Finished Processing">Finished Processing</option>
+            <option value="Match not Ideal">Match not Ideal</option>
+          </select>
+      </div>
+      <script type="text/javascript">
+      $('#Applicationcheckbox').change(function() {
+      var ApplicationStatusContent = document.getElementById("ApplicationStatus");
+      //    $('#mycheckboxdiv').style.display = "block";
+      if($('#Applicationcheckbox').is(':checked'))
+      ApplicationStatusContent.style.display = "block";
+      else
+      ApplicationStatusContent.style.display = "none";
+      });
+      </script>
+        <!-- add styles -->
+
+
+        <!--Interview Date(MM/DD/YY): <input type="text" id="first_name" />
+        Interview Time: <input type="text" id="time_name" /> -->
+
+        <!-- Adding calendar functionality-->
+    <u> Schedule Interview With Applicant:</u><input type="checkbox" name="Interviewcheckbox" id="Interviewcheckbox" autocomplete="off" value="Clickme" />
+      <div id="InterviewingOptions" style="display: none">
+        Interview Date: <input id="datepicker" type="text" width="auto" height="auto"/>
+        Interview Start Time :  <br><select name="time" id="time">
+    	<option value="5:00 AM">5:00 AM</option>
+    	<option value="5:15 AM">5:15 AM</option>
+    	<option value="5:30 AM">5:30 AM</option>
+    	<option value="5:45 AM">5:45 AM</option>
+
+    	<option value="6:00 AM">6:00 AM</option>
+    	<option value="6:15 AM">6:15 AM</option>
+    	<option value="6:30 AM">6:30 AM</option>
+    	<option value="6:45 AM">6:45 AM</option>
+
+    	<option value="7:00 AM">7:00 AM</option>
+    	<option value="7:15 AM">7:15 AM</option>
+    	<option value="7:30 AM">7:30 AM</option>
+    	<option value="7:45 AM">7:45 AM</option>
+
+    	<option value="8:00 AM">8:00 AM</option>
+    	<option value="8:15 AM">8:15 AM</option>
+    	<option value="8:30 AM">8:30 AM</option>
+    	<option value="8:45 AM">8:45 AM</option>
+
+    	<option value="9:00 AM">9:00 AM</option>
+    	<option value="9:15 AM">9:15 AM</option>
+    	<option value="9:30 AM">9:30 AM</option>
+    	<option value="9:45 AM">9:45 AM</option>
+
+    	<option value="10:00 AM">10:00 AM</option>
+    	<option value="10:15 AM">10:15 AM</option>
+    	<option value="10:30 AM">10:30 AM</option>
+    	<option value="10:45 AM">10:45 AM</option>
+
+    	<option value="11:00 AM">11:00 AM</option>
+    	<option value="11:15 AM">11:15 AM</option>
+    	<option value="11:30 AM">11:30 AM</option>
+    	<option value="11:45 AM">11:45 AM</option>
+
+    	<option value="12:00 PM">12:00 PM</option>
+    	<option value="12:15 PM">12:15 PM</option>
+    	<option value="12:30 PM">12:30 PM</option>
+    	<option value="12:45 PM">12:45 PM</option>
+
+    	<option value="1:00 PM">1:00 PM</option>
+    	<option value="1:15 PM">1:15 PM</option>
+    	<option value="1:30 PM">1:30 PM</option>
+    	<option value="1:45 PM">1:45 PM</option>
+
+    	<option value="2:00 PM">2:00 PM</option>
+    	<option value="2:15 PM">2:15 PM</option>
+    	<option value="2:30 PM">2:30 PM</option>
+    	<option value="2:45 PM">2:45 PM</option>
+
+    	<option value="3:00 PM">3:00 PM</option>
+    	<option value="3:15 PM">3:15 PM</option>
+    	<option value="3:30 PM">3:30 PM</option>
+    	<option value="3:45 PM">3:45 PM</option>
+
+    	<option value="4:00 PM">4:00 PM</option>
+    	<option value="4:15 PM">4:15 PM</option>
+    	<option value="4:30 PM">4:30 PM</option>
+    	<option value="4:45 PM">4:45 PM</option>
+
+    	<option value="5:00 PM">5:00 PM</option>
+    	<option value="5:15 PM">5:15 PM</option>
+    	<option value="5:30 PM">5:30 PM</option>
+    	<option value="5:45 PM">5:45 PM</option>
+
+    	<option value="6:00 PM">6:00 PM</option>
+    	<option value="6:15 PM">6:15 PM</option>
+    	<option value="6:30 PM">6:30 PM</option>
+    	<option value="6:45 PM">6:45 PM</option>
+
+    	<option value="7:00 PM">7:00 PM</option>
+    	<option value="7:15 PM">7:15 PM</option>
+    	<option value="7:30 PM">7:30 PM</option>
+    	<option value="7:45 PM">7:45 PM</option>
+
+    	<option value="8:00 PM">8:00 PM</option>
+    	<option value="8:15 PM">8:15 PM</option>
+    	<option value="8:30 PM">8:30 PM</option>
+    	<option value="8:45 PM">8:45 PM</option>
+
+    	<option value="9:00 PM">9:00 PM</option>
+    	<option value="9:15 PM">9:15 PM</option>
+    	<option value="9:30 PM">9:30 PM</option>
+    	<option value="9:45 PM">9:45 PM</option>
+
+    	<option value="10:00 PM">10:00 PM</option>
+    	<option value="10:15 PM">10:15 PM</option>
+    	<option value="10:30 PM">10:30 PM</option>
+    	<option value="10:45 PM">10:45 PM</option>
+
+    	<option value="11:00 PM">11:00 PM</option>
+    	<option value="11:15 PM">11:15 PM</option>
+    	<option value="11:30 PM">11:30 PM</option>
+    	<option value="11:45 PM">11:45 PM</option>
+    </select>
+  </br>
+  Interview endtime Time :  <br><select name="endtime" id="time">
+<option value="5:00 AM">5:00 AM</option>
+<option value="5:15 AM">5:15 AM</option>
+<option value="5:30 AM">5:30 AM</option>
+<option value="5:45 AM">5:45 AM</option>
+
+<option value="6:00 AM">6:00 AM</option>
+<option value="6:15 AM">6:15 AM</option>
+<option value="6:30 AM">6:30 AM</option>
+<option value="6:45 AM">6:45 AM</option>
+
+<option value="7:00 AM">7:00 AM</option>
+<option value="7:15 AM">7:15 AM</option>
+<option value="7:30 AM">7:30 AM</option>
+<option value="7:45 AM">7:45 AM</option>
+
+<option value="8:00 AM">8:00 AM</option>
+<option value="8:15 AM">8:15 AM</option>
+<option value="8:30 AM">8:30 AM</option>
+<option value="8:45 AM">8:45 AM</option>
+
+<option value="9:00 AM">9:00 AM</option>
+<option value="9:15 AM">9:15 AM</option>
+<option value="9:30 AM">9:30 AM</option>
+<option value="9:45 AM">9:45 AM</option>
+
+<option value="10:00 AM">10:00 AM</option>
+<option value="10:15 AM">10:15 AM</option>
+<option value="10:30 AM">10:30 AM</option>
+<option value="10:45 AM">10:45 AM</option>
+
+<option value="11:00 AM">11:00 AM</option>
+<option value="11:15 AM">11:15 AM</option>
+<option value="11:30 AM">11:30 AM</option>
+<option value="11:45 AM">11:45 AM</option>
+
+<option value="12:00 PM">12:00 PM</option>
+<option value="12:15 PM">12:15 PM</option>
+<option value="12:30 PM">12:30 PM</option>
+<option value="12:45 PM">12:45 PM</option>
+
+<option value="1:00 PM">1:00 PM</option>
+<option value="1:15 PM">1:15 PM</option>
+<option value="1:30 PM">1:30 PM</option>
+<option value="1:45 PM">1:45 PM</option>
+
+<option value="2:00 PM">2:00 PM</option>
+<option value="2:15 PM">2:15 PM</option>
+<option value="2:30 PM">2:30 PM</option>
+<option value="2:45 PM">2:45 PM</option>
+
+<option value="3:00 PM">3:00 PM</option>
+<option value="3:15 PM">3:15 PM</option>
+<option value="3:30 PM">3:30 PM</option>
+<option value="3:45 PM">3:45 PM</option>
+
+<option value="4:00 PM">4:00 PM</option>
+<option value="4:15 PM">4:15 PM</option>
+<option value="4:30 PM">4:30 PM</option>
+<option value="4:45 PM">4:45 PM</option>
+
+<option value="5:00 PM">5:00 PM</option>
+<option value="5:15 PM">5:15 PM</option>
+<option value="5:30 PM">5:30 PM</option>
+<option value="5:45 PM">5:45 PM</option>
+
+<option value="6:00 PM">6:00 PM</option>
+<option value="6:15 PM">6:15 PM</option>
+<option value="6:30 PM">6:30 PM</option>
+<option value="6:45 PM">6:45 PM</option>
+
+<option value="7:00 PM">7:00 PM</option>
+<option value="7:15 PM">7:15 PM</option>
+<option value="7:30 PM">7:30 PM</option>
+<option value="7:45 PM">7:45 PM</option>
+
+<option value="8:00 PM">8:00 PM</option>
+<option value="8:15 PM">8:15 PM</option>
+<option value="8:30 PM">8:30 PM</option>
+<option value="8:45 PM">8:45 PM</option>
+
+<option value="9:00 PM">9:00 PM</option>
+<option value="9:15 PM">9:15 PM</option>
+<option value="9:30 PM">9:30 PM</option>
+<option value="9:45 PM">9:45 PM</option>
+
+<option value="10:00 PM">10:00 PM</option>
+<option value="10:15 PM">10:15 PM</option>
+<option value="10:30 PM">10:30 PM</option>
+<option value="10:45 PM">10:45 PM</option>
+
+<option value="11:00 PM">11:00 PM</option>
+<option value="11:15 PM">11:15 PM</option>
+<option value="11:30 PM">11:30 PM</option>
+<option value="11:45 PM">11:45 PM</option>
+</select>
+</div>
+<script type="text/javascript">
+$('#Interviewcheckbox').change(function() {
+var InterviewContent = document.getElementById("InterviewingOptions");
+//    $('#mycheckboxdiv').style.display = "block";
+if($('#Interviewcheckbox').is(':checked'))
+{
+document.getElementById("datepicker").value = "";//reset the datepicker to an empty box
+InterviewContent.style.display = "block";
+}
+else
+InterviewContent.style.display = "none";
+});
+</script>
+      <u>Send Email To Applicant:</u><input type="checkbox" name="mycheckbox" id="mycheckbox" autocomplete="off" value="Clickme" />
+      <div id="mycheckboxdiv" style="display: none">
+          Email Body:<textarea id="interviewemail"> you have been selected for the next round</textarea>
+      </div>
+      <script type="text/javascript">
+      $('#mycheckbox').change(function() {
+      var emailContent = document.getElementById("mycheckboxdiv");
+      //    $('#mycheckboxdiv').style.display = "block";
+      if($('#mycheckbox').is(':checked'))
+      emailContent.style.display = "block";
+      else
+      emailContent.style.display = "none";
+      });
+      </script>
+
+
+
+
+
+
+</div>
+<div id="myDialognooffer" class="flora" title="send nooffer mail" style="display: none;">
+    <p>Are you sure</p>
+    Rejection Email:<textarea id="nooffertext">
+    Something Better is Waiting for you</textarea>
+</div>
+
+
+   <div style='color: green;' id='result'>
+    </div>
+
+</body>
+</html>

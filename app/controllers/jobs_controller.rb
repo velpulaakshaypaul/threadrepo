@@ -5,9 +5,46 @@ class JobsController < ApplicationController
   # GET /jobs.json
   def index
     @jobs = Job.where(:adminuser_id => current_user.id)
+    @email_id=params[:user_email];
     #@jobs = Job.all
   end
+  def sendemails
+  logger.debug 'insendemailsnow'
+  @applications= Application.find_by(:applicant_id=> params[:ApplicantId])
+  @applicants = Applicant.find(params[:ApplicantId])
+  @applications.update(status: params[:InterViewStatus])
+  @admid_id=params[:admin_email_id];
+  @adminmailer=UserMailer.admin_email(params[:admin_email_id]).deliver
+  @admin_email=params[:admin_email_id]
+  if params[:sendemailtoapplcant]=="true"
+  @Mailtester=UserMailer.welcome_email(@applicants,params[:body]).deliver
+  end
+  end
 
+  def interview_records
+   @InterviewEntry=Interviewrecord.new(:ApplicantId=> params[:ApplicantId],:AdminEmails=>params[:admin_email_id], :InterviewDate =>params[:DateofInterview],:InterviewStartTime=> params[:DateofInterview],:InterviewEndTime => params[:DateofInterview],:SentReminderEmails => "false")
+    @InterviewEntry.save;
+  end
+
+  def viewapplicants
+    @job = Job.find_by_id(params[:job_id]);
+    @admin_email=params[:admin_email];
+    @applications= Application.where(:job_id=> params[:job_id])
+    @applicants = Applicant.joins(:applications).where(applications: {job_id: params[:job_id]})
+    @statuses = Hash.new()
+    @applicants.each do |applicant|
+    applicant_id = applicant.id
+    @applications= Application.find_by(:applicant_id=> applicant_id)
+    @statuses[applicant_id] = @applications.status
+    end
+  end
+def viewapplicantsprofile
+  @name=params[:firstname];
+@applicant=Applicant.find_by_id(params[:applicant_id])
+@email_id=params[:admin_email];
+logger.debug "emailis"
+logger.debug @email_id
+end
   # GET /jobs/1
   # GET /jobs/1.json
   def show

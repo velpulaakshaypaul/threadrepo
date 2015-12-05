@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
    def after_sign_in_path_for(resource)
      @user = current_user
      if @user.admin?
-       jobs_path
+       jobs_path(:user_email => @user.email)
      else
        pages_applicant_home_path
      end

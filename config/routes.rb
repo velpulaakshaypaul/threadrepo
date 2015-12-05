@@ -11,14 +11,17 @@ Rails.application.routes.draw do
   resources :questions
   resources :applicants
   resources :internship_applications
-  resources :adminusers do
-    collection do
-     get 'sendemails'
-     get 'viewapplicants'
-    end
-    end
+  resources :adminusers
+
 # >>>>>>> e6b1b225c542ff112034bb5fade7eb2de6c16b30
-  resources :jobs
+  resources :jobs do
+    collection do
+      get 'viewapplicantsprofile'
+      get 'viewapplicants'
+      get 'sendemails'
+      get 'interview_records'
+    end
+  end
   devise_for :users
   get 'pages/about'
 
