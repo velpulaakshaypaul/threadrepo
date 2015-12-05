@@ -1,7 +1,11 @@
 {
   "Cucumber Features": {
     "coverage": {
-      "/home/jacob/OnlineApplicationSystem/app/models/user.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/models/interviewrecord.rb": [
+        1,
+        null
+      ],
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/models/user.rb": [
         1,
         null,
         null,
@@ -9,18 +13,13 @@
         null,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/controllers/pages_controller.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/controllers/pages_controller.rb": [
         1,
-        1,
-        2,
-        null,
-        null,
-        1,
-        null,
-        null,
         1,
         0,
-        0,
+        null,
+        null,
+        1,
         null,
         null,
         1,
@@ -31,17 +30,62 @@
         1,
         0,
         0,
+        null,
+        null,
+        1,
+        0,
+        0,
         0,
         null,
         null,
         1,
         0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        1,
+        1,
         0,
         null,
         null,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/controllers/application_controller.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/controllers/application_controller.rb": [
         null,
         1,
         null,
@@ -53,12 +97,12 @@
         1,
         null,
         1,
-        21,
-        21,
-        21,
-        21,
-        21,
-        21,
+        15,
+        15,
+        15,
+        15,
+        15,
+        15,
         null,
         null,
         1,
@@ -81,19 +125,19 @@
         null,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/helpers/application_helper.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/helpers/application_helper.rb": [
         1,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/helpers/adminusers_helper.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/helpers/adminusers_helper.rb": [
         1,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/helpers/applicants_helper.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/helpers/applicants_helper.rb": [
         1,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/helpers/devise_helper.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/helpers/devise_helper.rb": [
         1,
         1,
         9,
@@ -117,23 +161,23 @@
         null,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/helpers/internship_applications_helper.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/helpers/internship_applications_helper.rb": [
         1,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/helpers/jobs_helper.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/helpers/jobs_helper.rb": [
         1,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/helpers/pages_helper.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/helpers/pages_helper.rb": [
         1,
         null
       ],
-      "/home/jacob/OnlineApplicationSystem/app/helpers/questions_helper.rb": [
+      "/home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/helpers/questions_helper.rb": [
         1,
         null
       ]
     },
-    "timestamp": 1446259768
+    "timestamp": 1449284556
   }
 }

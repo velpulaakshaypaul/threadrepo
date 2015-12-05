@@ -52,71 +52,7 @@ Ducksburg</textarea>
 
 
 </div>
-<script type="text/javascript">
-$( document ).ready(function() {
 
-  $("#poll").click(function() {
-
-$('#datepicker').datepicker();
-   document.getElementById("datepicker").value = "";
-   var InterviewCheckBox=document.getElementById("Interviewcheckbox");
-var emailcheckbox = document.getElementById("mycheckbox");
-emailcheckbox.checked = false;
-Interviewcheckbox.checked = false;
-var emailContent = document.getElementById("mycheckboxdiv");
-var InterviewContent = document.getElementById("InterviewingOptions");
-emailContent.style.display="none"
-InterviewContent.style.display="none"
-      $("#myDialog").dialog({height: 'auto', buttons: { "OK":
-
-
-      function()
-      {
-        var Status,interviewDate,InterviewStartTime,InterviewEndTime,emailbody,sendapplicantemail,displayalertmessage;
-                 Status=$("#applicationstatus").val() ;
-                  var admin_email = "<%= @email_id %>"
-              //    alert(admin_email)
-              //   interviewDate=$("#datepicker").val().split("-");
-                 InterviewDate=$("#datepicker").val();
-                 var applicantId= '<%= @applicant.id %>'
-                 var new_start = new Date($("#datepicker").val());
-                //   alert(new_start);
-                  var Status = $("#applicationstatus").val();
-                 emailbody=$("#interviewemail").val();
-              //   var InterviewDate = new Date(interviewDate=[2], interviewDate=[1] - 1, interviewDate=[0]);
-                 InterviewStartTime=$("#time").val() ;
-                 InterviewEndTime=$("#endtime").val() ;
-
-                 if(($('#Interviewcheckbox').is(':checked')&& (InterviewDate!="")||((!$('#Interviewcheckbox').is(':checked'))&& (InterviewDate==""))))
-                 displayalertmessage="false";
-                 else
-                 displayalertmessage="true";
-                 if($('#mycheckbox').is(':checked'))
-                  sendapplicantemail="true"
-                  else
-                  sendapplicantemail="false"
-                 if(displayalertmessage=="false")
-                 {
-                //   alert("sending emails")
-                 $.ajax({type: 'GET', url: '/jobs/sendemails',dataType: 'script',data: { body: ( emailbody) ,subject: ("Interview scheduled for "+ admin_email),type: "offer",admin_email_id:admin_email , sendemailtoapplcant:sendapplicantemail,InterViewStatus:Status, ApplicantId:applicantId  } });
-                //  $(this).dialog("close");
-                }
-                else {
-                alert("Date cannot be empty");
-                }
-                $.ajax({type: 'GET', url: '/jobs/interview_records',dataType: 'script',data: { admin_email_id:admin_email ,  ApplicantId:applicantId, DateofInterview:InterviewDate, InterviewEndTime:InterviewDate   } });
-
-
-          $(this).dialog("close");
-        } } });
-      }
-       );
-
-    $("#nopoll").click(function() {
-      $("#myDialognooffer").dialog({height: 'auto', buttons: { "OK": function() { var answer,emailbody; answer=$("#nooffertext").val() ;$.ajax({type: 'GET', url: '/adminusers/sendemails',dataType: 'script',data: { subject: ("Interview scheduled for "+ answer), type: "nooffer",body: emailbody  } }); $(this).dialog("close"); } } });
-  });
-});
-</script>
 
 
 
@@ -390,6 +326,78 @@ InterviewContent.style.display = "none";
 
    <div style='color: green;' id='result'>
     </div>
+
+
+
+
+    <script type="text/javascript">
+    $( document ).ready(function() {
+
+      $("#poll").click(function() {
+
+    $('#datepicker').datepicker();
+       document.getElementById("datepicker").value = "";
+       var InterviewCheckBox=document.getElementById("Interviewcheckbox");
+    var emailcheckbox = document.getElementById("mycheckbox");
+    emailcheckbox.checked = false;
+    Interviewcheckbox.checked = false;
+    var emailContent = document.getElementById("mycheckboxdiv");
+    var InterviewContent = document.getElementById("InterviewingOptions");
+    emailContent.style.display="none"
+    InterviewContent.style.display="none"
+          $("#myDialog").dialog({height: 'auto', buttons: { "OK":
+
+
+          function()
+          {
+            var Status,interviewDate,InterviewStartTime,InterviewEndTime,emailbody,sendapplicantemail,displayalertmessage;
+                     Status=$("#applicationstatus").val() ;
+                      var admin_email = "<%= @email_id %>"
+                  //    alert(admin_email)
+                  //   interviewDate=$("#datepicker").val().split("-");
+                     InterviewDate=$("#datepicker").val();
+                     var applicantId= '<%= @applicant.id %>'
+                     var new_start = new Date($("#datepicker").val());
+                    //   alert(new_start);
+                      var Status = $("#applicationstatus").val();
+                     emailbody=$("#interviewemail").val();
+                  //   var InterviewDate = new Date(interviewDate=[2], interviewDate=[1] - 1, interviewDate=[0]);
+                     InterviewStartTime=$("#time").val() ;
+                     InterviewEndTime=$("#endtime").val() ;
+
+                     if(($('#Interviewcheckbox').is(':checked')&& (InterviewDate!="")||((!$('#Interviewcheckbox').is(':checked'))&& (InterviewDate==""))))
+                     displayalertmessage="false";
+                     else
+                     displayalertmessage="true";
+                     if($('#mycheckbox').is(':checked'))
+                      sendapplicantemail="true"
+                      else
+                      sendapplicantemail="false"
+                     if(displayalertmessage=="false")
+                     {
+                    //   alert("sending emails")
+                     $.ajax({type: 'GET', url: '/jobs/sendemails',dataType: 'script',data: { body: ( emailbody) ,subject: ("Interview scheduled for "+ admin_email),type: "offer",admin_email_id:admin_email , sendemailtoapplcant:sendapplicantemail,InterViewStatus:Status, ApplicantId:applicantId  } });
+                    //  $(this).dialog("close");
+                    }
+                    else {
+                    alert("Date cannot be empty");
+                    }
+                    $.ajax({type: 'GET', url: '/jobs/interview_records',dataType: 'script',data: { admin_email_id:admin_email ,  ApplicantId:applicantId, DateofInterview:InterviewDate, InterviewEndTime:InterviewDate   } });
+
+
+              $(this).dialog("close");
+            } } });
+          }
+           );
+
+        $("#nopoll").click(function() {
+          $("#myDialognooffer").dialog({height: 'auto', buttons: { "OK": function() { var answer,emailbody; answer=$("#nooffertext").val() ;$.ajax({type: 'GET', url: '/adminusers/sendemails',dataType: 'script',data: { subject: ("Interview scheduled for "+ answer), type: "nooffer",body: emailbody  } }); $(this).dialog("close"); } } });
+      });
+    });
+    </script>
+
+
+
 
 </body>
 </html>
