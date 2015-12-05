@@ -1,0 +1,25 @@
+/* line 1, /home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/assets/stylesheets/login.css.scss */
+#logindiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -250px;
+  width: 100px;
+  height: 100px;
+}
+
+/* line 10, /home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/assets/stylesheets/login.css.scss */
+#email_textbox, #password_textbox, #remember, #login_button {
+  width: 400px;
+}
+
+/* line 13, /home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/assets/stylesheets/login.css.scss */
+#password_textbox {
+  width: 400px;
+}
+
+/* line 17, /home/akshay/Desktop/csce606/jacob/latest/EmploymentApplicationSystem/app/assets/stylesheets/login.css.scss */
+#remember {
+  width: 400px;
+}
