@@ -9,19 +9,31 @@ class JobsController < ApplicationController
     #@jobs = Job.all
   end
   def sendemails
+    if params[:type]=="nooffer"
+    if params[:sendemailtoapplcant]=="true"
+    @applications= Application.find_by(:applicant_id=> params[:ApplicantId])
+    @applicants = Applicant.find(params[:ApplicantId])
+    @Mailtester=UserMailer.welcome_email(@applicants,params[:body],params[:subject]).deliver
+   end
+    else
   logger.debug 'insendemailsnow'
   @applications= Application.find_by(:applicant_id=> params[:ApplicantId])
   @applicants = Applicant.find(params[:ApplicantId])
   @applications.update(status: params[:InterViewStatus])
   @admid_id=params[:admin_email_id];
-  @adminmailer=UserMailer.admin_email(params[:admin_email_id]).deliver
   @admin_email=params[:admin_email_id]
+  if params[:sendadminmail]=="true"
+  @adminmailer=UserMailer.admin_email(params[:admin_email_id],params[:applicantName],params[:dayofInterview],params[:startTime],params[:endTime]).deliver
+  end
   if params[:sendemailtoapplcant]=="true"
-  @Mailtester=UserMailer.welcome_email(@applicants,params[:body]).deliver
+    logger.debug "ininterviewreq"  
+  @Mailtester=UserMailer.interviewRequest_email(@applicants,params[:dayofInterview],params[:startTime],params[:endTime],params[:body],params[:subject]).deliver
+  end
   end
   end
 
   def interview_records
+    logger.debug "in records"
    @InterviewEntry=Interviewrecord.new(:ApplicantId=> params[:ApplicantId],:AdminEmails=>params[:admin_email_id], :InterviewDate =>params[:DateofInterview],:InterviewStartTime=> params[:DateofInterview],:InterviewEndTime => params[:DateofInterview],:SentReminderEmails => "false")
     @InterviewEntry.save;
   end
